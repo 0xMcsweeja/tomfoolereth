@@ -2,23 +2,22 @@
 pragma solidity ^0.8.13;
 
 import "forge-std/Test.sol";
-import "../src/Counter.sol";
+import "../src/birthdayBoy.sol";
+contract CounterTest is Test, Birthday {
 
-contract CounterTest is Test {
-    Counter public counter;
 
     function setUp() public {
-        counter = new Counter();
-        counter.setNumber(0);
+
     }
 
-    function testIncrement() public {
-        counter.increment();
-        assertEq(counter.number(), 1);
+    function testIncrement(uint256 prankTimestamp) public {
+        vm.warp(b);
+        uint256 comparable = 163;
+        uint256 doy = DateLib.getDayOfYear(prankTimestamp);
+        console.log(comparable);
+        console.log(doy);
+        require(doy == comparable);
+
     }
 
-    function testSetNumber(uint256 x) public {
-        counter.setNumber(x);
-        assertEq(counter.number(), x);
-    }
 }
