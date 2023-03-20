@@ -34,6 +34,33 @@ contract restnow {
         _;
 }
 
+modifier primeSeconds() {
+    uint256 currentSecond = block.timestamp % 60;
+
+    bool isPrime = true;
+    if (currentSecond <= 1) {
+        isPrime = false;
+    } else {
+        for (uint256 i = 2; i <= currentSecond / 2; i++) {
+            if (currentSecond % i == 0) {
+                isPrime = false;
+                break;
+            }
+        }
+    }
+
+    require(isPrime, "Function can only be called during prime seconds");
+    _;
+}
+
+modifier fullMoonOnly() {
+    uint256 moonCycleDuration = 29.53 days;
+    uint256 fullMoonTimestamp = 1619740800;
+    uint256 timeSinceLastFullMoon = (block.timestamp - fullMoonTimestamp) % moonCycleDuration;
+    require(timeSinceLastFullMoon < 1 days, "Function can only be called during a full moon");
+    _;
+}
+
 
 
 }

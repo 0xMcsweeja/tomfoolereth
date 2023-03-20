@@ -41,7 +41,7 @@ contract Birthday {
     // Modifier that only allows the function to be called on April 22nd
     modifier birthdayBoy() {
         uint256 dayOfYear = block.timestamp.getDayOfYear();
-        require(dayOfYear == APRIL_22, "Function can only be called on April 22nd");
+        require(dayOfYear == APRIL_22, "Function can only be called by the birthday boy :)");
         _;
     }
 }
